@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Exceptions;
+namespace Raakkan\ThemesManager\Exceptions;
 
 final class ThemeLoaderException extends \RuntimeException
 {

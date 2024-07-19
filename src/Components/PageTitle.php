@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Components;
+namespace Raakkan\ThemesManager\Components;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\View\Component;

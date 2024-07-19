@@ -721,16 +721,16 @@
             "time": "2023-12-03T19:50:20+00:00"
         },
         {
-            "name": "hexadog/laravel-theme-installer",
+            "name": "Raakkan/laravel-theme-installer",
             "version": "v1.0.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hexadog/laravel-theme-installer.git",
+                "url": "https://github.com/Raakkan/laravel-theme-installer.git",
                 "reference": "362fa9e1e7414fc0440a7934bbcb4d3a4ba210ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hexadog/laravel-theme-installer/zipball/362fa9e1e7414fc0440a7934bbcb4d3a4ba210ac",
+                "url": "https://api.github.com/repos/Raakkan/laravel-theme-installer/zipball/362fa9e1e7414fc0440a7934bbcb4d3a4ba210ac",
                 "reference": "362fa9e1e7414fc0440a7934bbcb4d3a4ba210ac",
                 "shasum": ""
             },
@@ -745,14 +745,14 @@
             },
             "type": "composer-plugin",
             "extra": {
-                "class": "Hexadog\\LaravelThemeInstaller\\ThemeInstallerPlugin"
+                "class": "Raakkan\\LaravelThemeInstaller\\ThemeInstallerPlugin"
             },
             "autoload": {
                 "psr-0": {
-                    "Hexadog\\LaravelThemeInstaller\\": "src/"
+                    "Raakkan\\LaravelThemeInstaller\\": "src/"
                 },
                 "psr-4": {
-                    "Hexadog\\LaravelThemeInstaller\\": "src"
+                    "Raakkan\\LaravelThemeInstaller\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -762,12 +762,12 @@
             "authors": [
                 {
                     "name": "Gaetan",
-                    "email": "gaetan@hexadog.com"
+                    "email": "gaetan@Raakkan.com"
                 }
             ],
             "support": {
-                "issues": "https://github.com/hexadog/laravel-theme-installer/issues",
-                "source": "https://github.com/hexadog/laravel-theme-installer"
+                "issues": "https://github.com/Raakkan/laravel-theme-installer/issues",
+                "source": "https://github.com/Raakkan/laravel-theme-installer"
             },
             "time": "2022-08-09T12:06:27+00:00"
         },

@@ -30,7 +30,7 @@ if (! function_exists('theme')) {
     /**
      * Set theme.
      */
-    function theme(?string $themeName = null): Hexadog\ThemesManager\Theme
+    function theme(?string $themeName = null): Raakkan\ThemesManager\Theme
     {
         if ($themeName) {
             \Theme::set($themeName);
@@ -77,5 +77,12 @@ if (! function_exists('theme_image')) {
     function theme_image(string $asset, string $alt = '', string $class = '', array $attributes = [], bool $absolutePath = true, bool $version = true): string
     {
         return \Theme::image($asset, $alt, $class, $attributes, $absolutePath, $version);
+    }
+}
+
+if (!function_exists('theme_setting')) {
+    function theme_setting(string $source = 'raakkan/laravel-themes-manager', string|array $key = '*', mixed $default = null): mixed
+    {
+        return \Raakkan\ThemesManager\Models\ThemeSetting::get($source, $key, $default);
     }
 }

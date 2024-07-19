@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Traits;
+namespace Raakkan\ThemesManager\Traits;
 
 use Illuminate\Translation\Translator;
 

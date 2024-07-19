@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Events;
+namespace Raakkan\ThemesManager\Events;
 
-use Hexadog\ThemesManager\Theme;
+use Raakkan\ThemesManager\Theme;
 
 class ThemeEnabled
 {

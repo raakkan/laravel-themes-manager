@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Components;
+namespace Raakkan\ThemesManager\Components;
 
-use Hexadog\ThemesManager\Facades\ThemesManager;
+use Raakkan\ThemesManager\Facades\ThemesManager;
 use Illuminate\View\Component;
 
 class Image extends Component

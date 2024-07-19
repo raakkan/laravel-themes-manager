@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions are **welcome**. We accept contributions via Pull Requests on [Github](https://github.com/hexadog/laravel-themes-manager).
+Contributions are **welcome**. We accept contributions via Pull Requests on [Github](https://github.com/Raakkan/laravel-themes-manager).
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
@@ -57,7 +57,7 @@ This Code of Conduct applies both within project spaces and in public spaces whe
 
 ### Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at `gaetan@hexadog.com`. All
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at `gaetan@Raakkan.com`. All
 complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident.
 Further details of specific enforcement policies may be posted separately.
 

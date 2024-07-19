@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Console\Commands\Traits;
+namespace Raakkan\ThemesManager\Console\Commands\Traits;
 
 trait BlockMessage
 {

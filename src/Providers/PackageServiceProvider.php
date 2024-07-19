@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Providers;
+namespace Raakkan\ThemesManager\Providers;
 
-use Hexadog\ThemesManager\Components\Image;
-use Hexadog\ThemesManager\Components\PageTitle;
-use Hexadog\ThemesManager\Components\Script;
-use Hexadog\ThemesManager\Components\Style;
-use Hexadog\ThemesManager\Console\Commands;
-use Hexadog\ThemesManager\Console\Generators;
-use Hexadog\ThemesManager\Facades\ThemesManager as ThemesManagerFacade;
-use Hexadog\ThemesManager\Http\Middleware;
-use Hexadog\ThemesManager\ThemesManager;
+use Raakkan\ThemesManager\Components\Image;
+use Raakkan\ThemesManager\Components\PageTitle;
+use Raakkan\ThemesManager\Components\Script;
+use Raakkan\ThemesManager\Components\Style;
+use Raakkan\ThemesManager\Console\Commands;
+use Raakkan\ThemesManager\Console\Generators;
+use Raakkan\ThemesManager\Facades\ThemesManager as ThemesManagerFacade;
+use Raakkan\ThemesManager\Http\Middleware;
+use Raakkan\ThemesManager\ThemesManager;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
@@ -131,5 +131,10 @@ class PackageServiceProvider extends ServiceProvider
         $this->publishes([
             $this->getPath('resources/views') => resource_path('views/vendor/themes-manager'),
         ], 'views');
+
+        $this->publishes([
+            $this->getPath('database/migrations') => database_path('migrations'),
+        ], 'migrations');
+    
     }
 }

@@ -1,10 +1,10 @@
 {
-    "name": "hexadog/laravel-themes-manager",
+    "name": "raakkan/laravel-themes-manager",
     "description": "Bring multi themes support to your Laravel application with a full-featured Themes Manager",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/hexadog/laravel-themes-manager/issues",
-        "source": "https://github.com/hexadog/laravel-themes-manager"
+        "issues": "https://github.com/Raakkan/laravel-themes-manager/issues",
+        "source": "https://github.com/Raakkan/laravel-themes-manager"
     },
     "authors": [
         {
@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Hexadog\\ThemesManager\\": "src"
+            "Raakkan\\ThemesManager\\": "src"
         },
         "files": [
             "helpers/helpers.php"
@@ -34,22 +34,22 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Hexadog\\ThemesManager\\Test\\": "tests"
+            "Raakkan\\ThemesManager\\Test\\": "tests"
         }
     },
     "config": {
         "allow-plugins": {
-            "hexadog/laravel-theme-installer": true,
+            "Raakkan/laravel-theme-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Hexadog\\ThemesManager\\Providers\\PackageServiceProvider"
+                "Raakkan\\ThemesManager\\Providers\\PackageServiceProvider"
             ],
             "aliases": {
-                "Theme": "Hexadog\\ThemesManager\\Facades\\ThemesManager"
+                "Theme": "Raakkan\\ThemesManager\\Facades\\ThemesManager"
             },
             "dont-discover": []
         }

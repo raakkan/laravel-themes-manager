@@ -75,4 +75,9 @@ return [
             'email' => null,
         ],
     ],
+
+    'settings' => [
+        'database_table_name' => 'theme_settings',
+        'cache_key' => 'themes_manager_settings_',
+    ]
 ];

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager;
+namespace Raakkan\ThemesManager;
 
-use Hexadog\ThemesManager\Exceptions\ThemeNotFoundException;
-use Hexadog\ThemesManager\Traits\HasCache;
+use Raakkan\ThemesManager\Exceptions\ThemeNotFoundException;
+use Raakkan\ThemesManager\Traits\HasCache;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
@@ -183,7 +183,7 @@ class ThemesManager
 
     /**
      * Find a theme by given name and vendor (optional)
-     * name can include vendor prefix (ie: hexadog/default)
+     * name can include vendor prefix (ie: Raakkan/default)
      * If no vendor provided and name not prefixed by vendor
      * the first theme with given name is returned.
      */

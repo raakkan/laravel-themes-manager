@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Exceptions;
+namespace Raakkan\ThemesManager\Exceptions;
 
 class ThemeNotFoundException extends \Exception
 {

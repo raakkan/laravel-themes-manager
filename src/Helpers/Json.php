@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Helpers;
+namespace Raakkan\ThemesManager\Helpers;
 
-use Hexadog\ThemesManager\Exceptions\InvalidJsonException;
+use Raakkan\ThemesManager\Exceptions\InvalidJsonException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;

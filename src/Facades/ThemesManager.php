@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Facades;
+namespace Raakkan\ThemesManager\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

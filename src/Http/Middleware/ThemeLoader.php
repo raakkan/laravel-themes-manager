@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Http\Middleware;
+namespace Raakkan\ThemesManager\Http\Middleware;
 
-use Hexadog\ThemesManager\Facades\ThemesManager;
+use Raakkan\ThemesManager\Facades\ThemesManager;
 use Illuminate\Http\Request;
 
 class ThemeLoader

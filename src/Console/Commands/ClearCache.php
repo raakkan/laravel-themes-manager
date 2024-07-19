@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hexadog\ThemesManager\Console\Commands;
+namespace Raakkan\ThemesManager\Console\Commands;
 
-use Hexadog\ThemesManager\Console\Commands\Traits\SectionMessage;
-use Hexadog\ThemesManager\Facades\ThemesManager;
+use Raakkan\ThemesManager\Console\Commands\Traits\SectionMessage;
+use Raakkan\ThemesManager\Facades\ThemesManager;
 use Illuminate\Console\Command;
 
 class ClearCache extends Command
