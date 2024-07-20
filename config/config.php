@@ -79,5 +79,9 @@ return [
     'settings' => [
         'database_table_name' => 'theme_settings',
         'cache_key' => 'themes_manager_settings_',
+    ],
+    'menus' => [
+        'database_table_name' => 'theme_menus',
+        'cache_key' => 'themes_manager_menus_',
     ]
 ];

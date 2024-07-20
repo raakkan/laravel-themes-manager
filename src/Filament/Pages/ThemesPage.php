@@ -6,24 +6,15 @@ use Filament\Pages\Page;
 use Raakkan\ThemesManager\Models\ThemeSetting;
 use Raakkan\ThemesManager\Facades\ThemesManager;
 
+// TODO: theme delete and page refrsh
 class ThemesPage extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
-
     protected static string $view = 'themes-manager::filament.pages.themes-page';
-    public $search = '';
+
+    protected static ?string $navigationGroup = 'Appearance';
 
     public function mount()
     {
-        
-    }
-
-    public function filteredThemes()
-    {
-        return $this->getThemes()->filter(function ($theme) {
-            return str_contains(strtolower($theme->getName()), strtolower($this->search)) ||
-                   str_contains(strtolower($theme->getDescription()), strtolower($this->search));
-        });
     }
     
     public function getThemes()
@@ -40,10 +31,7 @@ class ThemesPage extends Page
     {
         ThemesManager::set($vendor . '/' . $themeName);
 
-        ThemeSetting::updateOrCreate(
-            ['key' => 'current_theme'],
-            ['value' => $vendor . '/' . $themeName]
-        );
+        ThemeSetting::set('current_theme', $vendor . '/' . $themeName);
     }
 
     public function getTitle(): string

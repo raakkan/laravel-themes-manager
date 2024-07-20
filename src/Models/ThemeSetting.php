@@ -17,7 +17,7 @@ class ThemeSetting extends Model
         $settings = cache()->rememberForever(config('themes-manager.settings.cache_key'), function () use ($source) {
             $settings = [];
 
-            ThemeSetting::where('source', $source)->all()->each(function ($setting) use (&$settings) {
+            ThemeSetting::where('source', $source)->get()->each(function ($setting) use (&$settings) {
                 data_set($settings, $setting->key, $setting->value);
             });
 

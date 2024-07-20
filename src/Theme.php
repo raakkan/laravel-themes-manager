@@ -4,25 +4,31 @@ declare(strict_types=1);
 
 namespace Raakkan\ThemesManager;
 
-use Raakkan\ThemesManager\Events\ThemeDisabled;
-use Raakkan\ThemesManager\Events\ThemeDisabling;
-use Raakkan\ThemesManager\Events\ThemeEnabled;
-use Raakkan\ThemesManager\Events\ThemeEnabling;
-use Raakkan\ThemesManager\Facades\ThemesManager;
-use Raakkan\ThemesManager\Traits\HasTranslations;
-use Raakkan\ThemesManager\Traits\HasViews;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Config;
+use Raakkan\ThemesManager\Traits\HasMenu;
+use Raakkan\ThemesManager\Traits\HasViews;
+use Raakkan\ThemesManager\Events\ThemeEnabled;
+use Raakkan\ThemesManager\Events\ThemeDisabled;
+use Raakkan\ThemesManager\Events\ThemeEnabling;
+use Raakkan\ThemesManager\Traits\HasThemeClass;
+use Raakkan\ThemesManager\Events\ThemeDisabling;
+use Raakkan\ThemesManager\Facades\ThemesManager;
+use Raakkan\ThemesManager\Traits\HasTranslations;
+use Raakkan\ThemesManager\Traits\HasFilamentPages;
 
 final class Theme
 {
     use HasTranslations;
     use HasViews;
+    use HasFilamentPages;
+    use HasThemeClass;
+    use HasMenu;
 
     /**
      * The theme name.
@@ -308,6 +314,7 @@ final class Theme
             $this->enabled = true;
             $this->loadViews();
             $this->loadTranlastions();
+            $this->registerThemeClass();
 
             if ($withEvent) {
                 event(new ThemeEnabled($this));

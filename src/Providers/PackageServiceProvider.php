@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace Raakkan\ThemesManager\Providers;
 
+use Livewire\Livewire;
+use Illuminate\Support\Str;
+use Illuminate\Routing\Router;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\ServiceProvider;
+use Raakkan\ThemesManager\ThemesManager;
+use Raakkan\ThemesManager\Http\Middleware;
 use Raakkan\ThemesManager\Components\Image;
-use Raakkan\ThemesManager\Components\PageTitle;
-use Raakkan\ThemesManager\Components\Script;
 use Raakkan\ThemesManager\Components\Style;
 use Raakkan\ThemesManager\Console\Commands;
+use Raakkan\ThemesManager\Components\Script;
 use Raakkan\ThemesManager\Console\Generators;
+use Raakkan\ThemesManager\Components\PageTitle;
 use Raakkan\ThemesManager\Facades\ThemesManager as ThemesManagerFacade;
-use Raakkan\ThemesManager\Http\Middleware;
-use Raakkan\ThemesManager\ThemesManager;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Routing\Router;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 
 class PackageServiceProvider extends ServiceProvider
 {
@@ -47,6 +48,7 @@ class PackageServiceProvider extends ServiceProvider
         $this->strapCommands();
 
         $router->aliasMiddleware('theme', Middleware\ThemeLoader::class);
+        $this->registerLivewireComponents();
     }
 
     /**
@@ -64,6 +66,11 @@ class PackageServiceProvider extends ServiceProvider
         AliasLoader::getInstance()->alias('Theme', ThemesManagerFacade::class);
 
         $this->app->register(BladeServiceProvider::class);
+    }
+
+    public function registerLivewireComponents(): void
+    {
+        Livewire::component('theme::livewire.menu-item-manage', \Raakkan\ThemesManager\Menu\Livewire\MenuItemManage::class);
     }
 
     /**
