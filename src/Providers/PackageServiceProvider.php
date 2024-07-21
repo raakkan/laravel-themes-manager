@@ -16,6 +16,7 @@ use Raakkan\ThemesManager\Components\Style;
 use Raakkan\ThemesManager\Console\Commands;
 use Raakkan\ThemesManager\Components\Script;
 use Raakkan\ThemesManager\Console\Generators;
+use Raakkan\ThemesManager\ThemeManagerConfig;
 use Raakkan\ThemesManager\Components\PageTitle;
 use Raakkan\ThemesManager\Facades\ThemesManager as ThemesManagerFacade;
 
@@ -60,6 +61,10 @@ class PackageServiceProvider extends ServiceProvider
 
         $this->app->singleton('themes-manager', function () {
             return new ThemesManager();
+        });
+
+        $this->app->singleton('themes-manager-config', function () {
+            return new ThemeManagerConfig();
         });
 
         AliasLoader::getInstance()->alias('ThemesManager', ThemesManagerFacade::class);

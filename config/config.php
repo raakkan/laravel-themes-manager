@@ -84,5 +84,9 @@ return [
         'database_table_name' => 'theme_menus',
         'menu_items_database_table_name' => 'theme_menu_items',
         'cache_key' => 'themes_manager_menus_',
+    ],
+    'widgets' => [
+        'database_table_name' => 'theme_widgets',
+        'cache_key' => 'themes_manager_widgets_',
     ]
 ];

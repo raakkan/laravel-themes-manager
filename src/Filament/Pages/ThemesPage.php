@@ -3,8 +3,12 @@
 namespace Raakkan\ThemesManager\Filament\Pages;
 
 use Filament\Pages\Page;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Raakkan\ThemesManager\Models\ThemeSetting;
 use Raakkan\ThemesManager\Facades\ThemesManager;
+use Raakkan\ThemesManager\Facades\ThemeManagerConfig;
+use Raakkan\ThemesManager\Filament\FrontEndThemePlugin;
 
 // TODO: theme delete and page refrsh
 class ThemesPage extends Page
@@ -31,7 +35,10 @@ class ThemesPage extends Page
     {
         ThemesManager::set($vendor . '/' . $themeName);
 
-        ThemeSetting::set('current_theme', $vendor . '/' . $themeName);
+        if (ThemeManagerConfig::isSettingsEnabled() && Schema::hasTable('theme_settings')) {
+            ThemeSetting::set('current_theme', $vendor . '/' . $themeName);
+        }
+        return redirect(request()->header('Referer'));
     }
 
     public function getTitle(): string

@@ -10,6 +10,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Actions\Contracts\HasActions;
 use Raakkan\ThemesManager\Models\ThemeMenu;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -21,7 +22,6 @@ class MenuItemManage extends Component implements HasForms, HasActions
     use InteractsWithActions;
     use InteractsWithForms;
     
-    #[Reactive] 
     public ThemeMenu $menu;
 
     public $menuItems;
@@ -40,6 +40,10 @@ class MenuItemManage extends Component implements HasForms, HasActions
     public function addMenuItem($item)
     {
         ThemeMenuItem::addMenuItem($this->menu, $item);
+        Notification::make()
+                    ->title('Menu item added')
+                    ->success()
+                    ->send();
         $this->menuItems = $this->menu->items()->with('children')->whereNull('parent_id')->orderBy('order')->get();
     }
 
@@ -47,6 +51,10 @@ class MenuItemManage extends Component implements HasForms, HasActions
     {
         if ($this->selectedItem) {
             ThemeMenuItem::addAsChild($this->menu, $item, $this->selectedItem['id']);
+            Notification::make()
+                    ->title('Menu item added')
+                    ->success()
+                    ->send();
             $this->menuItems = $this->menu->items()->with('children')->whereNull('parent_id')->orderBy('order')->get();
         }
     }
@@ -84,6 +92,10 @@ class MenuItemManage extends Component implements HasForms, HasActions
             ])
             ->action(function (array $data) {
                 $this->getSelectedItem()->update($data);
+                Notification::make()
+                    ->title('Menu item updated')
+                    ->success()
+                    ->send();
                 $this->menuItems = $this->menu->items()->with('children')->whereNull('parent_id')->orderBy('order')->get();
             });
     }
@@ -96,6 +108,10 @@ class MenuItemManage extends Component implements HasForms, HasActions
             ->color('danger')
             ->action(function () {
                 $this->getSelectedItem()->delete();
+                Notification::make()
+                    ->title('Menu item deleted')
+                    ->success()
+                    ->send();
                 $this->menuItems = $this->menu->items()->with('children')->whereNull('parent_id')->orderBy('order')->get();
             });
     }

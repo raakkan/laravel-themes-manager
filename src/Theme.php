@@ -172,6 +172,11 @@ final class Theme
         return $this->name;
     }
 
+    public function getNamespace(): string
+    {
+        return $this->vendor . '\\' . $this->name;
+    }
+
     /**
      * Set Theme path.
      */

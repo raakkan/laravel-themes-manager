@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ThemeMenu extends Model
 {
-    protected $fillable = ['name', 'location','is_active'];
+    protected $fillable = ['name', 'location','is_active', 'source'];
 
     protected $casts = [
         'is_active' => 'boolean',
