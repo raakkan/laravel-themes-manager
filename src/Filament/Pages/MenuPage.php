@@ -30,7 +30,9 @@ class MenuPage extends Page
     {
         $this->menus = ThemeMenu::all();
 
-        $this->selectedMenu = $this->menus->first()->id;
+        if ($this->menus->count() > 0) {
+            $this->selectedMenu = $this->menus->first()->id;
+        }
     }
 
     protected function getHeaderActions(): array

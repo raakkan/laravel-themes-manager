@@ -1,6 +1,6 @@
-<div class="mt-4 flex w-full" x-data="menuItemsManager()">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <div class="w-2/6 bg-gray-200 p-2">
+<div class="mt-4 flex w-full">
+    {{ Vite::useHotFile(storage_path('vite.hot'))->useBuildDirectory('build')->withEntryPoints(['resources/css/base.css', 'resources/js/menu.ts']) }}
+    <div class="w-2/6 bg-gray-100 p-2 border-r border-gray-200">
         <div class="w-full max-w-full">
             <div x-data="{ open: false }" class="w-full bg-white rounded">
                 <button @click="open = !open" class="flex items-center justify-between w-full bg-white px-3 py-2 rounded">
@@ -12,115 +12,49 @@
                 </button>
 
                 <div x-show="open" x-collapse class="space-y-2 px-3 pb-3">
-                    <template x-for="item in predefinedItems" :key="item.name">
+                    @foreach ($predefinedItems as $item)
                         <div class="relative group">
-                            <div x-text="item.name"
+                            <div
                                 class="block w-full text-left bg-gray-100 p-2 rounded group-hover:bg-gray-200 transition">
+                                {{ $item['name'] }}
                             </div>
-                            <button @click="addMenuItem(item.name);"
-                                class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white text-xs p-1 rounded opacity-0 group-hover:opacity-100 transition">
-                                Add
-                            </button>
+                            <div
+                                class="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition">
+                                <button wire:click="addMenuItem({{ json_encode($item) }})"
+                                    class="bg-blue-500 text-white text-xs p-2 rounded mr-1">
+                                    Add
+                                </button>
+                                @if ($selectedItem && isset($selectedItem['id']))
+                                    <button wire:click="addAsChild({{ json_encode($item) }})"
+                                        class="bg-green-500 text-white text-xs p-2 rounded">
+                                        Add as child
+                                    </button>
+                                @endif
+                            </div>
                         </div>
-                    </template>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
 
-    <template x-if="menuItems.length > 0">
-        <div class="w-4/6 bg-gray-100">
-            <ul id="nested-sortable" class="max-w-full">
-                <template x-for="(item, index) in menuItems" :key="index">
-                    <li class="p-2 relative" draggable="true" @dragstart="dragStart($event, index)" @dragover.prevent
-                        @drop="drop($event, index)">
-                        <div x-text="item.name" class="bg-gray-200 p-2 rounded cursor-move"></div>
-                        <div class="bg-gray-200 p-2 rounded" @dragover.prevent="dragover" @dragleave="dragleave"
-                            @drop="dropAsChild($event, index)" :class="{ 'bg-blue-200': isDraggingOver }">
-                            Drop here to add as child
-                        </div>
-                        <ul>
-                            <template x-for="(child, childIndex) in item.children" :key="childIndex">
-                                <li>
-                                    <div x-text="child.name" class="bg-gray-200 p-2 rounded cursor-move"></div>
-                                </li>
-                            </template>
-                        </ul>
-                    </li>
-                </template>
+    @if (count($menuItems) > 0)
+        <div class="w-4/6 bg-gray-100 p-2" x-data="{
+            handle: (item, position) => {
+                $wire.updateMenuItemOrder(item, position)
+            }
+        }">
+            <ul id="nested-sortable" x-sort="handle" class="max-w-full">
+                @foreach ($menuItems as $index => $item)
+                    <x-themes-manager::menu-item :item="$item" :selected-item="$selectedItem" />
+                @endforeach
             </ul>
         </div>
-    </template>
-
-    <template x-if="menuItems.length === 0">
+    @else
         <div class="w-4/6 bg-gray-100">
-            <div class="p-4 max-w-full">
-                {{ $menu->name }} no menu items
+            <div class="p-4 max-w-full h-40 flex items-center justify-center">
+                <span><b>{{ $menu->name }}</b> has no menu items</span>
             </div>
         </div>
-    </template>
+    @endif
 </div>
-
-@assets
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
-@endassets
-
-@script
-    <script>
-        Alpine.data('menuItemsManager', () => ({
-            menuItems: @entangle('menuItems'),
-            predefinedItems: [{
-                    name: 'Home',
-                    children: []
-                },
-                {
-                    name: 'About',
-                    children: []
-                },
-                {
-                    name: 'Contact',
-                    children: []
-                },
-                {
-                    name: 'Services',
-                    children: []
-                }
-            ],
-            isDraggingOver: false,
-            addMenuItem(itemName) {
-                this.menuItems.push({
-                    name: itemName,
-                    children: []
-                });
-            },
-            dragStart(event, index) {
-                event.dataTransfer.setData('text/plain', index);
-            },
-            drop(event, targetIndex) {
-                console.log('drop', this.menuItems);
-                const sourceIndex = event.dataTransfer.getData('text/plain');
-                const item = this.menuItems.splice(sourceIndex, 1)[0];
-                this.menuItems.splice(targetIndex, 0, item);
-            },
-            dropAsChild(event, parentIndex) {
-                console.log('dropAsChild', this.menuItems);
-
-                const sourceIndex = event.dataTransfer.getData('text/plain');
-
-                const item = this.menuItems.splice(sourceIndex, 1)[0];
-
-                if (!this.menuItems[parentIndex].children) {
-                    this.menuItems[parentIndex].children = [];
-                }
-                this.menuItems[parentIndex].children.push(item);
-                this.isDraggingOver = false;
-            },
-            dragover() {
-                this.isDraggingOver = true;
-            },
-            dragleave() {
-                this.isDraggingOver = false;
-            }
-        }));
-    </script>
-@endscript

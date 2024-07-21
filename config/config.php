@@ -82,6 +82,7 @@ return [
     ],
     'menus' => [
         'database_table_name' => 'theme_menus',
+        'menu_items_database_table_name' => 'theme_menu_items',
         'cache_key' => 'themes_manager_menus_',
     ]
 ];

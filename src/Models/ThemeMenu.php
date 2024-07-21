@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class ThemeMenu extends Model
 {
-    protected $fillable = ['name', 'location', 'items', 'is_active'];
+    protected $fillable = ['name', 'location','is_active'];
 
     protected $casts = [
-        'items' => 'json',
         'is_active' => 'boolean',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(ThemeMenuItem::class, 'menu_id');
+    }
 
     public function getTable(): string
     {

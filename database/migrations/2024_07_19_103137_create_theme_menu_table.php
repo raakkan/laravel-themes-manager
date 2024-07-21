@@ -15,9 +15,22 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('location')->nullable();
-            $table->json('items')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+        });
+
+        Schema::create(config('themes-manager.menus.menu_items_database_table_name', 'theme_menu_items'), function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('menu_id');
+            $table->string('name');
+            $table->integer('order')->default(1);
+            $table->string('url')->nullable();
+            $table->string('icon')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->timestamps();
+    
+            $table->foreign('menu_id')->references('id')->on(config('themes-manager.menus.database_table_name', 'theme_menus'))->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on(config('themes-manager.menus.menu_items_database_table_name', 'theme_menu_items'))->onDelete('cascade');
         });
     }
 
@@ -26,6 +39,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('theme_menu');
+        Schema::dropIfExists(config('themes-manager.menus.database_table_name', 'theme_menus'));
+        Schema::dropIfExists(config('themes-manager.menus.menu_items_database_table_name', 'theme_menu_items'));
     }
 };
