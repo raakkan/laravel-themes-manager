@@ -38,12 +38,12 @@ class PackageServiceProvider extends ServiceProvider
     public function boot(Router $router): void
     {
         $this->loadViewsFrom($this->getPath('resources/views'), 'themes-manager');
-        $this->loadViewComponentsAs('theme', [
-            Image::class,
-            PageTitle::class,
-            Script::class,
-            Style::class,
-        ]);
+        // $this->loadViewComponentsAs('theme', [
+        //     Image::class,
+        //     PageTitle::class,
+        //     Script::class,
+        //     Style::class,
+        // ]);
 
         $this->strapPublishers();
         $this->strapCommands();

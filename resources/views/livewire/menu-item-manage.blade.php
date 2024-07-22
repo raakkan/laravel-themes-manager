@@ -46,7 +46,7 @@
         }">
             <ul id="nested-sortable" x-sort="handle" class="max-w-full">
                 @foreach ($menuItems as $index => $item)
-                    <x-themes-manager::menu-item :item="$item" :selected-item="$selectedItem" />
+                    <x-themes-manager::menu.menu-item :item="$item" :selected-item="$selectedItem" />
                 @endforeach
             </ul>
         </div>

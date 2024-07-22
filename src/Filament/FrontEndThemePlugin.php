@@ -13,7 +13,9 @@ use Raakkan\ThemesManager\Facades\ThemeManagerConfig;
 
 class FrontEndThemePlugin implements Plugin
 {
-    protected $pages = [Pages\ThemesPage::class,];
+    protected $pages = [
+        Pages\ThemesPage::class,
+    ];
 
     public static function make(): static
     {
@@ -60,6 +62,10 @@ class FrontEndThemePlugin implements Plugin
     public function enableWidgets()
     {
         ThemeManagerConfig::enableWidgets();
+
+        $this->pages = array_merge($this->pages, [
+            Pages\WidgetPage::class,
+        ]);
 
         return $this;
     }
