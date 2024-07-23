@@ -3,6 +3,9 @@
 namespace Raakkan\ThemesManager\Filament\Pages;
 
 use Filament\Pages\Page;
+use Raakkan\ThemesManager\Models\ThemeSetting;
+use Raakkan\ThemesManager\Facades\ThemesManager;
+use Raakkan\ThemesManager\Models\ThemeWidgetLocation;
 
 class WidgetPage extends Page
 {
@@ -10,47 +13,26 @@ class WidgetPage extends Page
 
     protected static ?string $navigationGroup = 'Appearance';
 
-    public array $themeWidgets = [
-        [
-            'name' => 'widget 1'
-        ],
-        [
-            'name' => 'widget 2'
-        ],
-        [
-            'name' => 'widget 3'
-        ],
-        [
-            'name' => 'widget 4'
-        ],
-        [
-            'name' => 'widget 5'
-        ],
-    ];
-
-    public array $themeWidgetLocations = [
-        'footer' => [
-            'name' => 'footer',
-            'label' => 'Footer',
-            'widgets' => [
-            ],
-        ],
-        'header' => [
-            'name' => 'header',
-            'label' => 'Header',
-            'widgets' => [
-            ],
-        ],
-        'sidebar' => [
-            'name' => 'sidebar',
-            'label' => 'Sidebar',
-            'widgets' => [
-            ],
-        ]
-    ];
-
     public function mount()
     {
+        // dd($this->getWidgetLocations());
+    }
+
+    public function getWidgetLocations()
+    {
+        if(ThemeSetting::getCurrentTheme() === null) {
+            return [];
+        }
+
+        $themeLocations = ThemesManager::get(ThemeSetting::getCurrentTheme())->getWidgetLocations();
+        $themeNamespace = ThemesManager::current()->getNamespace();
+
+        $locations = [];
+        foreach ($themeLocations as $location) {
+            $locations[] = ThemeWidgetLocation::firstOrCreate(['name' => $location->getName(), 'label' => $location->getLabel(), 'source' => $themeNamespace]);
+        }
+        
+        return $locations;
     }
 
     public function getTitle(): string

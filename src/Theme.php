@@ -13,6 +13,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Raakkan\ThemesManager\Traits\HasMenu;
 use Raakkan\ThemesManager\Traits\HasViews;
+use Raakkan\ThemesManager\Traits\HasWidgets;
 use Raakkan\ThemesManager\Events\ThemeEnabled;
 use Raakkan\ThemesManager\Events\ThemeDisabled;
 use Raakkan\ThemesManager\Events\ThemeEnabling;
@@ -29,6 +30,7 @@ final class Theme
     use HasFilamentPages;
     use HasThemeClass;
     use HasMenu;
+    use HasWidgets;
 
     /**
      * The theme name.
@@ -320,6 +322,7 @@ final class Theme
             $this->loadViews();
             $this->loadTranlastions();
             $this->registerThemeClass();
+            $this->loadWidgetsAndLocations();
 
             if ($withEvent) {
                 event(new ThemeEnabled($this));

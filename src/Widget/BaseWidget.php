@@ -2,41 +2,53 @@
 
 namespace Raakkan\ThemesManager\Widget;
 
+use Filament\Forms\Components\Field;
 use Illuminate\View\View;
 use Illuminate\View\Component;
 use Raakkan\ThemesManager\Support\Traits\HasName;
+use Raakkan\ThemesManager\Widget\Traits\HasWidgetSettings;
 
 class BaseWidget extends Component
 {
     use HasName;
+    use HasWidgetSettings;
 
-    protected string $location;
-    protected array $options = [];
+    protected string $id = '';
+    protected string $view;
+    protected string $source;
 
-    public function getOptions(): array
+    protected int $order = 0;
+
+    public function getId(): string
     {
-        return $this->options;
+        if (!$this->id) {
+            $className = static::class;
+            $name = $this->getName();
+            $source = $this->getSource();
+            
+            $this->id = md5($className . $name . $source);
+        }
+        
+        return $this->id;
     }
 
-    public function setOptions(array $options): self
+    public function getSource(): string
     {
-        $this->options = $options;
-        return $this;
+        return $this->source;
     }
 
-    public function getLocation(): string
+    public function setSource(string $source): self
     {
-        return $this->location;
-    }
-
-    public function setLocation(string $location): self
-    {
-        $this->location = $location;
+        $this->source = $source;
         return $this;
     }
 
     public function render(): View
     {
-        return view('components.alert');
+        return view($this->view, [
+            'name' => $this->getName(),
+            'order' => $this->order,
+            'settings' => $this->getSettings(),
+        ]);
     }
 }

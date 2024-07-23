@@ -76,6 +76,8 @@ class PackageServiceProvider extends ServiceProvider
     public function registerLivewireComponents(): void
     {
         Livewire::component('theme::livewire.menu-item-manage', \Raakkan\ThemesManager\Menu\Livewire\MenuItemManage::class);
+        Livewire::component('theme::livewire.widget-locations-component', \Raakkan\ThemesManager\Widget\Livewire\WidgetLocationsComponent::class);
+        Livewire::component('theme::livewire.widget-component', \Raakkan\ThemesManager\Widget\Livewire\WidgetComponent::class);
     }
 
     /**
@@ -145,8 +147,15 @@ class PackageServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
-            $this->getPath('database/migrations') => database_path('migrations'),
-        ], 'migrations');
-    
+            $this->getPath('database/migrations/create_theme_widgets_table.php') => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_theme_widgets_table.php'),
+        ], 'theme-widgets-table');
+
+        $this->publishes([
+            $this->getPath('database/migrations/create_theme_menus_table.php') => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_theme_menus_table.php'),
+        ], 'theme-menus-table');
+        
+        $this->publishes([
+            $this->getPath('database/migrations/create_theme_settings_table.php') => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_theme_settings_table.php'),
+        ], 'theme-settings-table');
     }
 }

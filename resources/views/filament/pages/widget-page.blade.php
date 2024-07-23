@@ -1,14 +1,14 @@
-<div class="bg-gray-100 min-h-screen p-6">
-    <div class="max-w-4xl">
-        <div class="bg-white rounded-lg shadow p-4">
-            <h2 class="text-lg font-semibold mb-4">Manage Widgets</h2>
-            <div class="space-y-4">
-                @forelse ($themeWidgetLocations as $location)
-                    <x-themes-manager::widgets.widget-location :location="$location" />
-                @empty
-                    <div>No widget locations available</div>
-                @endforelse
-            </div>
-        </div>
+{{ Vite::useHotFile(storage_path('vite.hot'))->useBuildDirectory('build')->withEntryPoints(['resources/css/base.css', 'resources/js/menu.ts']) }}
+<div class="bg-white border border-gray-200 rounded-lg mt-5">
+    <div>
+        <h4 class="p-4 text-xl font-medium">Manage Widgets</h4>
+    </div>
+
+    <div class="p-4">
+        @forelse ($this->getWidgetLocations() as $location)
+            @livewire('theme::livewire.widget-locations-component', ['location' => $location], key('widget-location-' . $location->name))
+        @empty
+            <p>No widget locations</p>
+        @endforelse
     </div>
 </div>

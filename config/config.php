@@ -87,6 +87,7 @@ return [
     ],
     'widgets' => [
         'database_table_name' => 'theme_widgets',
+        'location_database_table_name' => 'theme_widget_locations',
         'cache_key' => 'themes_manager_widgets_',
     ]
 ];
