@@ -1,32 +1,17 @@
-@props(['item', 'selectedItem'])
-
-<li x-sort:item="{{ $item->id }}" wire:key="menu-item-{{ $item['id'] }}" class="mb-3">
-    <div
-        class="flex items-center rounded-lg border border-gray-200 shadow-sm {{ $selectedItem && $item['id'] === $selectedItem['id'] ? ' bg-gray-100' : 'bg-white hover:bg-gray-100' }}">
-        <svg x-sort:handle
-            class="w-6 h-6 mr-4 ml-2 cursor-move text-gray-400 hover:text-gray-600 transition duration-200 ease-in-out"
-            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-        <button wire:click="setSelectedItem({{ json_encode($item) }})"
-            class="flex-1 text-left py-2 px-3 rounded-lg focus:outline-none transition duration-200 ease-in-out">
-            {{ $item->name }}
+<div class="relative group">
+    <div class="block w-full text-left bg-gray-100 p-2 rounded group-hover:bg-gray-200 transition">
+        {{ $item->getName() }}
+    </div>
+    <div class="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition">
+        <button wire:click="addMenuItem({{ json_encode($item->toArray()) }})"
+            class="bg-blue-500 text-white text-xs p-2 rounded mr-1">
+            Add
         </button>
-        @if ($selectedItem && $item->id === $selectedItem['id'])
-            <div class="flex space-x-2 text-sm pr-3">
-                {{ $this->editAction }}
-                {{ $this->deleteAction }}
-            </div>
+        @if ($selectedItem && isset($selectedItem['id']))
+            <button wire:click="addAsChild({{ json_encode($item->toArray()) }})"
+                class="bg-green-500 text-white text-xs p-2 rounded">
+                Add as child
+            </button>
         @endif
     </div>
-
-    @if ($item->hasChildren())
-        <ul x-sort="handle" class="ml-10 mt-2 space-y-3">
-            @foreach ($item->children as $childIndex => $child)
-                <x-themes-manager::menu.menu-item :item="$child" :selected-item="$selectedItem" />
-            @endforeach
-        </ul>
-    @endif
-
-    <x-filament-actions::modals />
-</li>
+</div>

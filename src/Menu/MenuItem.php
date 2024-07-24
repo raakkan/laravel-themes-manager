@@ -39,6 +39,11 @@ class MenuItem  implements Arrayable
         return $this;
     }
 
+    public function getType()
+    {
+        return 'item';
+    }
+
     public function toArray()
     {
         return [

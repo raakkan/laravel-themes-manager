@@ -5,10 +5,9 @@ namespace Raakkan\ThemesManager\Menu;
 use Illuminate\Contracts\Support\Arrayable;
 use Raakkan\ThemesManager\Support\Traits\HasName;
 
-class Menu implements Arrayable
+class MenuItemGroup implements Arrayable
 {
     use HasName;
-
     protected $items = [];
 
     public function __construct($name)
@@ -21,9 +20,25 @@ class Menu implements Arrayable
         return new static($name);
     }
 
+    public function items($items)
+    {
+        $this->items = $items;
+        return $this;
+    }
+
     public function addItem($item)
     {
         $this->items[] = $item;
+    }
+
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    public function getType()
+    {
+        return 'group';
     }
 
     public function toArray()

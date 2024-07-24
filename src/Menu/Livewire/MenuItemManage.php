@@ -77,7 +77,34 @@ class MenuItemManage extends Component implements HasForms, HasActions
             return [];
         }
 
-        return ThemesManager::get(ThemeSetting::getCurrentTheme())->getMenuItems();
+        $themeItems = ThemesManager::get(ThemeSetting::getCurrentTheme())->getMenuItems();
+
+        $menuItems = [];
+
+        foreach ($themeItems as $item) {
+            if ($item->getType() === 'item') {
+                $menuItems[] = $item;
+            }
+        }
+
+        return $menuItems;
+    }
+
+    public function getMenuItemGroups(): array
+    {
+        if(ThemeSetting::getCurrentTheme() === null) {
+            return [];
+        }
+        $themeItems = ThemesManager::get(ThemeSetting::getCurrentTheme())->getMenuItems();
+        
+        $menuItemGroups = [];
+        foreach ($themeItems as $item) {
+            if ($item->getType() === 'group') {
+                $menuItemGroups[] = $item;
+            }
+        }
+
+        return $menuItemGroups;
     }
 
     public function setSelectedItem($item)
@@ -124,6 +151,7 @@ class MenuItemManage extends Component implements HasForms, HasActions
                     ->success()
                     ->send();
                 $this->menuItems = $this->menu->items()->with('children')->whereNull('parent_id')->orderBy('order')->get();
+                $this->selectedItem = null;
             });
     }
 
