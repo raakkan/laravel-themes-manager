@@ -2,6 +2,8 @@
 
 namespace Raakkan\ThemesManager\Traits;
 
+use Raakkan\ThemesManager\Widget\WidgetLocation;
+
 
 trait HasWidgets
 {
@@ -48,7 +50,7 @@ trait HasWidgets
     {
         if ($this->hasThemeClass()) {
             $this->makeWidgets($this->themeClass::getWidgets());
-            $this->widgetsLocations = $this->themeClass::getWidgetLocations();
+            $this->makeWidgetLocations($this->themeClass::getWidgetLocations());
         }
     }
 
@@ -63,6 +65,16 @@ trait HasWidgets
             if ($widget->hasSettings()) {
                 $this->widgetsSettings[$widget->getId()] = $widget->getSettings();
             }
+        }
+    }
+
+    public function makeWidgetLocations($locations)
+    {
+        foreach ($locations as $key => $location) {
+            if (is_string($location)) {
+                $location = WidgetLocation::make($key)->label($location);
+            }
+            $this->widgetsLocations[$location->getName()] = $location;
         }
     }
 }

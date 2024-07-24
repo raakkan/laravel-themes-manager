@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('source');
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
 
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
     
             $table->foreign('menu_id')->references('id')->on(config('themes-manager.menus.database_table_name', 'theme_menus'))->onDelete('cascade');

@@ -24,6 +24,6 @@ trait HasName
 
     public function hasName(): bool
     {
-        return ! is_null($this->name);
+        return !is_null($this->name);
     }
 }

@@ -9,11 +9,27 @@ abstract class BaseTheme
         return [];
     }
 
+    public static function getMenuItems(): array
+    {
+        return [];
+    }
+
     public static function getMenuLocations(): array
     {
         return [
             'header' => 'Header',
             'footer' => 'Footer',
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [];
+    }
+
+    public static function getWidgetLocations(): array
+    {
+        return [
         ];
     }
 }

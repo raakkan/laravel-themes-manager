@@ -54,6 +54,7 @@ class ThemeMenuItem extends Model
         foreach ($siblingItems as $siblingItem) {
             if ($oldPosition < $newPosition) {
                 if ($siblingItem->order > $oldPosition && $siblingItem->order <= $newPosition) {
+                    // dd($siblingItem->order, $oldPosition, $newPosition); try to understand
                     $siblingItem->order--;
                     $siblingItem->save();
                 }
@@ -65,15 +66,7 @@ class ThemeMenuItem extends Model
             }
         }
 
-        if ($newPosition === 0) {
-            foreach ($siblingItems as $siblingItem) {
-                $siblingItem->order++;
-                $siblingItem->save();
-            }
-            $this->order = 0;
-        } else {
-            $this->order = $newPosition;
-        }
+        $this->order = $newPosition;
 
         $this->save();
     }

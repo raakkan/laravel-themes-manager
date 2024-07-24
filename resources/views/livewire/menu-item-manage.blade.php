@@ -12,20 +12,20 @@
                 </button>
 
                 <div x-show="open" x-collapse class="space-y-2 px-3 pb-3">
-                    @foreach ($predefinedItems as $item)
+                    @foreach ($this->getMenuItems() as $item)
                         <div class="relative group">
                             <div
                                 class="block w-full text-left bg-gray-100 p-2 rounded group-hover:bg-gray-200 transition">
-                                {{ $item['name'] }}
+                                {{ $item->getName() }}
                             </div>
                             <div
                                 class="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition">
-                                <button wire:click="addMenuItem({{ json_encode($item) }})"
+                                <button wire:click="addMenuItem({{ json_encode($item->toArray()) }})"
                                     class="bg-blue-500 text-white text-xs p-2 rounded mr-1">
                                     Add
                                 </button>
                                 @if ($selectedItem && isset($selectedItem['id']))
-                                    <button wire:click="addAsChild({{ json_encode($item) }})"
+                                    <button wire:click="addAsChild({{ json_encode($item->toArray()) }})"
                                         class="bg-green-500 text-white text-xs p-2 rounded">
                                         Add as child
                                     </button>

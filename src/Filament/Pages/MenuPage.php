@@ -21,6 +21,7 @@ class MenuPage extends Page
     protected static string $view = 'themes-manager::filament.pages.menu-page';
 
     protected static ?string $navigationGroup = 'Appearance';
+    protected static ?string $slug = 'appearance/menus';
 
     public $menus;
     public $name;
@@ -31,7 +32,7 @@ class MenuPage extends Page
 
     public function mount()
     {
-        $this->menus = ThemeMenu::all();
+        $this->menus = ThemeMenu::where('source', $this->getActiveThemeNamespace())->get();
 
         if ($this->menus->count() > 0) {
             $this->selectedMenu = $this->menus->first()->id;
@@ -58,6 +59,7 @@ class MenuPage extends Page
                     ->success()
                     ->send();
                     $this->menus = ThemeMenu::all();
+                    $this->selectedMenu = $this->menus->first()->id;
                 }),
         ];
     }

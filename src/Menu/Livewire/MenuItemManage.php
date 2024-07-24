@@ -13,8 +13,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Actions\Contracts\HasActions;
 use Raakkan\ThemesManager\Models\ThemeMenu;
+use Raakkan\ThemesManager\Models\ThemeSetting;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Raakkan\ThemesManager\Models\ThemeMenuItem;
+use Raakkan\ThemesManager\Facades\ThemesManager;
 use Filament\Actions\Concerns\InteractsWithActions;
 
 class MenuItemManage extends Component implements HasForms, HasActions
@@ -67,6 +69,15 @@ class MenuItemManage extends Component implements HasForms, HasActions
             $menuItem->updateOrder($position);
             $this->menuItems = $this->menu->items()->with('children')->whereNull('parent_id')->orderBy('order')->get();
         }
+    }
+
+    public function getMenuItems(): array
+    {
+        if(ThemeSetting::getCurrentTheme() === null) {
+            return [];
+        }
+
+        return ThemesManager::get(ThemeSetting::getCurrentTheme())->getMenuItems();
     }
 
     public function setSelectedItem($item)

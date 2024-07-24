@@ -16,6 +16,7 @@ class ThemesPage extends Page
     protected static string $view = 'themes-manager::filament.pages.themes-page';
 
     protected static ?string $navigationGroup = 'Appearance';
+    protected static ?string $slug = 'appearance/themes';
 
     public function mount()
     {

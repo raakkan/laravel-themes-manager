@@ -12,6 +12,7 @@ class WidgetPage extends Page
     protected static string $view = 'themes-manager::filament.pages.widget-page';
 
     protected static ?string $navigationGroup = 'Appearance';
+    protected static ?string $slug = 'appearance/widgets';
 
     public function mount()
     {
@@ -26,7 +27,7 @@ class WidgetPage extends Page
 
         $themeLocations = ThemesManager::get(ThemeSetting::getCurrentTheme())->getWidgetLocations();
         $themeNamespace = ThemesManager::current()->getNamespace();
-
+        
         $locations = [];
         foreach ($themeLocations as $location) {
             $locations[] = ThemeWidgetLocation::firstOrCreate(['name' => $location->getName(), 'label' => $location->getLabel(), 'source' => $themeNamespace]);
