@@ -3,6 +3,7 @@
 namespace Raakkan\ThemesManager\Menu;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Raakkan\ThemesManager\Support\Traits\HasLabel;
 use Raakkan\ThemesManager\Support\Traits\HasName;
 
 class Menu implements Arrayable
@@ -10,6 +11,7 @@ class Menu implements Arrayable
     use HasName;
 
     protected $items = [];
+    protected $location;
 
     public function __construct($name)
     {
@@ -21,9 +23,31 @@ class Menu implements Arrayable
         return new static($name);
     }
 
-    public function addItem($item)
+    public function items($items)
     {
-        $this->items[] = $item;
+        $this->items = $items;
+        return $this;
+    }
+
+    public function getItems()
+    {
+        return $this->items;
+    }
+    
+    public function location($location)
+    {
+        $this->location = $location;
+        return $this;
+    }
+
+    public function hasLocation()
+    {
+        return isset($this->location);
+    }
+
+    public function getLocation()
+    {
+        return $this->location;
     }
 
     public function toArray()

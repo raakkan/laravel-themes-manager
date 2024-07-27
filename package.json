@@ -18,7 +18,6 @@
     "@alpinejs/sort": "^3.14.1",
     "@vitejs/plugin-vue": "^5.0.5",
     "laravel-vite-plugin": "^1.0.5",
-    "vue": "^3.4.33",
-    "vue-draggable-plus": "^0.5.2"
+    "vue": "^3.4.33"
   }
 }

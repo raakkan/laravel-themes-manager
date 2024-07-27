@@ -1,4 +1,4 @@
-<div class="relative group">
+<div class="relative group" draggable="true">
     <div class="block w-full text-left bg-gray-100 p-2 rounded group-hover:bg-gray-200 transition">
         {{ $item->getName() }}
     </div>

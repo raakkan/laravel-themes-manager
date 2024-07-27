@@ -19,21 +19,27 @@ return new class extends Migration
             $table->string('source');
             $table->json('settings')->nullable();
             $table->timestamps();
+
+            $table->unique(['name', 'source']);
         });
 
         Schema::create(config('themes-manager.menus.menu_items_database_table_name', 'theme_menu_items'), function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('menu_id');
             $table->string('name');
+            $table->string('label')->nullable();
             $table->integer('order')->default(1);
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->json('settings')->nullable();
+            $table->string('source');
             $table->timestamps();
     
             $table->foreign('menu_id')->references('id')->on(config('themes-manager.menus.database_table_name', 'theme_menus'))->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on(config('themes-manager.menus.menu_items_database_table_name', 'theme_menu_items'))->onDelete('cascade');
+
+            $table->unique(['order', 'menu_id', 'source', 'parent_id']);
         });
     }
 

@@ -5,9 +5,6 @@ namespace Raakkan\ThemesManager\Menu\Livewire;
 use Livewire\Component;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
-use Livewire\Attributes\Reactive;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
@@ -41,7 +38,7 @@ class MenuItemManage extends Component implements HasForms, HasActions
 
     public function addMenuItem($item)
     {
-        ThemeMenuItem::addMenuItem($this->menu, $item);
+        ThemeMenuItem::addMenuItem($this->menu, array_merge($item, ['source' => $this->getActiveThemeNamespace()]));
         Notification::make()
                     ->title('Menu item added')
                     ->success()
@@ -52,7 +49,7 @@ class MenuItemManage extends Component implements HasForms, HasActions
     public function addAsChild($item)
     {
         if ($this->selectedItem) {
-            ThemeMenuItem::addAsChild($this->menu, $item, $this->selectedItem['id']);
+            ThemeMenuItem::addAsChild($this->menu, array_merge($item, ['source' => $this->getActiveThemeNamespace()]), $this->selectedItem['id']);
             Notification::make()
                     ->title('Menu item added')
                     ->success()
@@ -145,7 +142,10 @@ class MenuItemManage extends Component implements HasForms, HasActions
             ->link()
             ->color('danger')
             ->action(function () {
+                $order = $this->getSelectedItem()->order;
+                $parent = $this->getSelectedItem()->parent_id;
                 $this->getSelectedItem()->delete();
+                ThemeMenuItem::reorderSiblings($this->menu, $order, $parent);
                 Notification::make()
                     ->title('Menu item deleted')
                     ->success()
@@ -153,6 +153,15 @@ class MenuItemManage extends Component implements HasForms, HasActions
                 $this->menuItems = $this->menu->items()->with('children')->whereNull('parent_id')->orderBy('order')->get();
                 $this->selectedItem = null;
             });
+    }
+
+    public function getActiveThemeNamespace()
+    {
+        if(ThemeSetting::getCurrentTheme() === null) {
+            return '';
+        }
+
+        return ThemesManager::current()->getNamespace();
     }
 
     public function render()

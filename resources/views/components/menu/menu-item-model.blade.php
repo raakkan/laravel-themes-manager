@@ -6,7 +6,8 @@
         <svg x-sort:handle
             class="w-6 h-6 mr-4 ml-2 cursor-move text-gray-400 hover:text-gray-600 transition duration-200 ease-in-out"
             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+            </path>
         </svg>
         <button wire:click="setSelectedItem({{ json_encode($item) }})"
             class="flex-1 text-left py-2 px-3 rounded-lg focus:outline-none transition duration-200 ease-in-out">

@@ -39,6 +39,10 @@ class ThemesPage extends Page
         if (ThemeManagerConfig::isSettingsEnabled() && Schema::hasTable('theme_settings')) {
             ThemeSetting::set('current_theme', $vendor . '/' . $themeName);
         }
+
+        $currentTheme = ThemesManager::current();
+        $currentTheme->loadThemeDBData();
+        
         return redirect(request()->header('Referer'));
     }
 

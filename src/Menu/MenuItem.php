@@ -39,6 +39,27 @@ class MenuItem  implements Arrayable
         return $this;
     }
 
+    public function children($children)
+    {
+        $this->children = $children;
+        return $this;
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    public function hasChildren()
+    {
+        return count($this->children) > 0;
+    }
+
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
     public function getType()
     {
         return 'item';

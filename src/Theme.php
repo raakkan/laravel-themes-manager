@@ -15,6 +15,7 @@ use Raakkan\ThemesManager\Traits\HasMenu;
 use Raakkan\ThemesManager\Traits\HasViews;
 use Raakkan\ThemesManager\Traits\HasWidgets;
 use Raakkan\ThemesManager\Events\ThemeEnabled;
+use Raakkan\ThemesManager\Traits\HasDbActions;
 use Raakkan\ThemesManager\Events\ThemeDisabled;
 use Raakkan\ThemesManager\Events\ThemeEnabling;
 use Raakkan\ThemesManager\Traits\HasThemeClass;
@@ -31,6 +32,7 @@ final class Theme
     use HasThemeClass;
     use HasMenu;
     use HasWidgets;
+    use HasDbActions;
 
     /**
      * The theme name.

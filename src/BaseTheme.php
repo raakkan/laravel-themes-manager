@@ -9,6 +9,11 @@ abstract class BaseTheme
         return [];
     }
 
+    public static function getMenus(): array
+    {
+        return [];
+    }
+
     public static function getMenuItems(): array
     {
         return [];

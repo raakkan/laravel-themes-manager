@@ -2,12 +2,13 @@
 
 namespace Raakkan\ThemesManager\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 // TODO: menu and menu item add and update rules pending
 class ThemeMenuItem extends Model
 {
-    protected $fillable = ['menu_id', 'name', 'order', 'url', 'icon', 'parent_id'];
+    protected $fillable = ['menu_id', 'name', 'order', 'url', 'icon', 'parent_id', 'source'];
 
     public function menu()
     {
@@ -39,36 +40,40 @@ class ThemeMenuItem extends Model
         $oldPosition = $this->order;
         $parentId = $this->parent_id;
 
-        if ($parentId === null) {
-            $siblingItems = ThemeMenuItem::whereNull('parent_id')
-                ->where('id', '!=', $this->id)
-                ->orderBy('order')
-                ->get();
-        } else {
-            $siblingItems = ThemeMenuItem::where('parent_id', $parentId)
-                ->where('id', '!=', $this->id)
-                ->orderBy('order')
-                ->get();
-        }
+        DB::transaction(function () use ($newPosition, $oldPosition, $parentId) {
 
-        foreach ($siblingItems as $siblingItem) {
+            DB::table($this->getTable())
+                ->where('id', $this->id)
+                ->update(['order' => 99999999]);
+
             if ($oldPosition < $newPosition) {
-                if ($siblingItem->order > $oldPosition && $siblingItem->order <= $newPosition) {
-                    // dd($siblingItem->order, $oldPosition, $newPosition); try to understand
-                    $siblingItem->order--;
-                    $siblingItem->save();
-                }
+                DB::table($this->getTable())
+                    ->where('parent_id', $parentId)
+                    ->where('order', '>', $oldPosition)
+                    ->where('order', '<=', $newPosition)
+                    ->decrement('order');
             } else {
-                if ($siblingItem->order >= $newPosition && $siblingItem->order < $oldPosition) {
-                    $siblingItem->order++;
-                    $siblingItem->save();
-                }
+                DB::table($this->getTable())
+                    ->where('parent_id', $parentId)
+                    ->where('order', '>=', $newPosition)
+                    ->where('order', '<', $oldPosition)
+                    ->orderBy('order', 'desc')
+                    ->increment('order');
             }
+
+            DB::table($this->getTable())
+                ->where('id', $this->id)
+                ->update(['order' => $newPosition]);
+        });
+    }
+
+    public static function reorderSiblings($menu, $order, $parentId = null)
+    {
+        $siblings = $menu->items()->where('parent_id', $parentId)->where('order', '>=', $order)->get();
+        foreach ($siblings as $sibling) {
+            $sibling->order = $sibling->order - 1;
+            $sibling->save();
         }
-
-        $this->order = $newPosition;
-
-        $this->save();
     }
 
     public static function addMenuItem($menu, $item)
@@ -84,6 +89,7 @@ class ThemeMenuItem extends Model
             'name' => $item['name'],
             'url' => $item['url'],
             'icon' => $item['icon'],
+            'source' => $item['source'],
             'order' => $order,
         ]);
 
@@ -104,6 +110,7 @@ class ThemeMenuItem extends Model
             'url' => $item['url'],
             'icon' => $item['icon'],
             'parent_id' => $parentId,
+            'source' => $item['source'],
         ]);
 
         $menu->items()->save($menuItem);
