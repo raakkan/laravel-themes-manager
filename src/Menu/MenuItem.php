@@ -14,6 +14,7 @@ class MenuItem  implements Arrayable
     use HasIcon;
 
     protected $url;
+    protected $model;
 
     protected $parent;
     protected $children = [];
@@ -26,6 +27,31 @@ class MenuItem  implements Arrayable
     public static function make($name)
     {
         return new static($name);
+    }
+
+    public static function makeByModel($model, $parent = null)
+    {
+        $item = new static($model->name);
+
+        $item->model = $model;
+        $item->url = $model->url;
+
+        if ($model->hasParent() && $parent) {
+            $item->parent = $parent;
+        }
+
+        if ($model->hasChildren()) {
+            foreach ($model->children as $child) {
+                $item->children[] = MenuItem::makeByModel($child, $item);
+            }
+        }
+
+        return $item;
+    }
+
+    public function getModelId()
+    {
+        return $this->model->id;
     }
 
     public function getLabel()

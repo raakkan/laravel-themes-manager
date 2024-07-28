@@ -3,6 +3,7 @@
 namespace Raakkan\ThemesManager\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Raakkan\ThemesManager\Menu\Menu;
 
 class ThemeMenu extends Model
 {
@@ -14,7 +15,12 @@ class ThemeMenu extends Model
 
     public function items()
     {
-        return $this->hasMany(ThemeMenuItem::class, 'menu_id');
+        return $this->hasMany(ThemeMenuItem::class, 'menu_id')->orderBy('order', 'asc');
+    }
+
+    public static function getMenu($menu_name)
+    {
+        return Menu::makeByModel(self::where('name', $menu_name)->first());
     }
 
     public function getTable(): string

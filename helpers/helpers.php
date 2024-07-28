@@ -86,3 +86,10 @@ if (!function_exists('theme_setting')) {
         return \Raakkan\ThemesManager\Models\ThemeSetting::get($source, $key, $default);
     }
 }
+
+if (!function_exists('theme_menus')) {
+    function theme_menus($menu_name)
+    {
+        return \Raakkan\ThemesManager\Models\ThemeMenu::getMenu($menu_name);
+    }
+}

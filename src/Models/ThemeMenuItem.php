@@ -22,7 +22,7 @@ class ThemeMenuItem extends Model
 
     public function children()
     {
-        return $this->hasMany(ThemeMenuItem::class, 'parent_id')->orderBy('order');
+        return $this->hasMany(ThemeMenuItem::class, 'parent_id')->orderBy('order', 'asc');
     }
 
     public function hasChildren()

@@ -23,6 +23,20 @@ class Menu implements Arrayable
         return new static($name);
     }
 
+    public static function makeByModel($model)
+    {
+        $menu = new static($model->name);
+        $menu->location = $model->location;
+
+        foreach ($model->items as $item) {
+            if (!$item->hasParent()) {
+                $menu->items[] = MenuItem::makeByModel($item);
+            }
+        }
+
+        return $menu;
+    }
+
     public function items($items)
     {
         $this->items = $items;

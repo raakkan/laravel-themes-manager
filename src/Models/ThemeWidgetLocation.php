@@ -14,7 +14,7 @@ class ThemeWidgetLocation extends Model
 
     public function widgets()
     {
-        return $this->hasMany(ThemeWidget::class, 'theme_widget_location_id');
+        return $this->hasMany(ThemeWidget::class, 'theme_widget_location_id')->orderBy('order', 'asc');
     }
 
     public function getTable(): string

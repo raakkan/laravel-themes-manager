@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('order')->default(1);
             $table->json('settings')->nullable();
             $table->foreignId('theme_widget_location_id')->constrained(config('themes-manager.widgets.location_database_table_name', 'theme_widget_locations'));
-            $table->unique(['order', 'theme_widget_location_id']);
+            $table->unique(['order', 'widget_id', 'source', 'theme_widget_location_id']);
             $table->timestamps();
         });
     }
