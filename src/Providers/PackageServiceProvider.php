@@ -78,6 +78,9 @@ class PackageServiceProvider extends ServiceProvider
         Livewire::component('theme::livewire.menu-item-manage', \Raakkan\ThemesManager\Menu\Livewire\MenuItemManage::class);
         Livewire::component('theme::livewire.widget-locations-component', \Raakkan\ThemesManager\Widget\Livewire\WidgetLocationsComponent::class);
         Livewire::component('theme::livewire.widget-component', \Raakkan\ThemesManager\Widget\Livewire\WidgetComponent::class);
+
+        Livewire::component('theme::builder.livewire.block', \Raakkan\ThemesManager\Builder\Livewire\Block::class);
+        Livewire::component('theme::builder.livewire.component', \Raakkan\ThemesManager\Builder\Livewire\Component::class);
     }
 
     /**
