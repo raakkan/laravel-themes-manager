@@ -7,7 +7,7 @@ use Filament\Contracts\Plugin;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Filament\Navigation\NavigationGroup;
-use Raakkan\ThemesManager\Builder\Filament\Pages\PageBulderPage;
+use Raakkan\ThemesManager\Builder\Filament\Pages\TemplatesPage;
 use Raakkan\ThemesManager\Models\ThemeSetting;
 use Raakkan\ThemesManager\Facades\ThemesManager;
 use Raakkan\ThemesManager\Facades\ThemeManagerConfig;
@@ -16,7 +16,7 @@ class FrontEndThemePlugin implements Plugin
 {
     protected $pages = [
         Pages\ThemesPage::class,
-        PageBulderPage::class,
+        TemplatesPage::class,
     ];
 
     public static function make(): static

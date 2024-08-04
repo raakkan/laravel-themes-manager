@@ -5,12 +5,12 @@ namespace Raakkan\ThemesManager\Builder\Filament\Pages;
 use Filament\Pages\Page;
 use Raakkan\ThemesManager\Builder\PageBuilder;
 
-class PageBulderPage extends Page
+class TemplatesPage extends Page
 {
-    protected static string $view = 'themes-manager::builder.filament.pages.page-builder-page';
+    protected static string $view = 'themes-manager::builder.filament.pages.templates-page';
 
     protected static ?string $navigationGroup = 'Appearance';
-    protected static ?string $slug = 'appearance/page-builder';
+    protected static ?string $slug = 'appearance/templates';
 
     public $builder = [];
 

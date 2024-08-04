@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Raakkan\ThemesManager\Helpers;
+namespace Raakkan\OnlyLaravel\Theme\Helpers;
 
 use Raakkan\ThemesManager\Exceptions\InvalidJsonException;
 use Illuminate\Filesystem\Filesystem;
